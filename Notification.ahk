@@ -20,6 +20,7 @@ messageColor := "White"
 messageFont := "Segoe UI"
 backgroundColor := "2A2B2F"
 padSize := 30
+ignoreHover := 0
 
 ;Loop through parameters and split apart on equals sign 
 loop %0%
@@ -30,10 +31,11 @@ loop %0%
 		varName := trim(chunks[1])
 		varValue := trim(chunks[2])
 		if varName
-			%varName% := varValue
+			try
+				%varName% := varValue
 	}
 }
-
+notificationText:=StrReplace(notificationText, "\\", "\") ;not sure why these are coming in as doubled up when I display a file path
 ;Show help if no text was passed in
 if(!(notificationTitle or notificationText))
 {
@@ -142,20 +144,23 @@ WatchMouse:
 	NewY := y
 	Loop, 128
 	{
-		; get the id of the window the mouse is over
-		MouseGetPos,,, mouseWin
-		
-		; get the window title
-		WinGetTitle, win, ahk_id %mouseWin%
-		
-		; if the mouse is over this notification
-		if (win == winTitle) {
+		if !ignoreHover
+		{
+			; get the id of the window the mouse is over
+			MouseGetPos,,, mouseWin
 			
-			; set the transparency of the notification back to full and exit the loop
-			WinSet, Trans, 255, %winTitle%
-			NewY := y
-			WinMove %winTitle%,, x, %NewY%
-			break
+			; get the window title
+			WinGetTitle, win, ahk_id %mouseWin%
+			
+			; if the mouse is over this notification
+			if (win == winTitle) {
+				
+				; set the transparency of the notification back to full and exit the loop
+				WinSet, Trans, 255, %winTitle%
+				NewY := y
+				WinMove %winTitle%,, x, %NewY%
+				break
+			}
 		}
 		
 		; otherwise set a new transparency level
