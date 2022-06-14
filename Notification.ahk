@@ -35,7 +35,8 @@ loop %0%
 				%varName% := varValue
 	}
 }
-notificationText:=StrReplace(notificationText, "\\", "\") ;not sure why these are coming in as doubled up when I display a file path
+notificationText:=StrReplace(notificationText, "\\", "\")
+
 ;Show help if no text was passed in
 if(!(notificationTitle or notificationText))
 {
@@ -62,6 +63,7 @@ Available Parameters (case insensitive):
 	backgroundColor
 	logPath (save a record of notification calls)
 	padSize
+	ignoreHover
 
 You Passed
 %params%
