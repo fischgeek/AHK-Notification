@@ -22,6 +22,7 @@ backgroundColor := "2A2B2F"
 padSize := 30
 ignoreHover := 0
 useWindowsTheme := 1
+delay := 1000
 
 ;Loop through parameters and split apart on equals sign 
 loop %0%
@@ -66,6 +67,7 @@ Available Parameters (case insensitive):
 	padSize
 	ignoreHover
 	useWindowsTheme
+	delay
 
 You Passed
 %params%
@@ -119,8 +121,10 @@ Gui, Add, Text, ym
 Gui, Show, % "y" yPosition " " ShowParams " NoActivate", %winTitle%
 WinGetPos x, x, width, height, %winTitle%
 
+Sleep, % delay
+
 ; start a 1 second timer to watch the position of the mouse
-SetTimer, WatchMouse, 1000
+SetTimer, WatchMouse, 100
 return
 
 #If (WinActive(winTitle))
@@ -154,7 +158,7 @@ WatchMouse:
 	; start the transparency at full
 	t := 255
 	yPixelsToMoveUp := (yPosition + height) / 128
-	
+
 	; loop 128 times (~1/2 of 255)
 	WinGetPos x, y, width, height, %winTitle%
 	NewY := y
