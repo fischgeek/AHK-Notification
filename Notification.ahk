@@ -21,6 +21,7 @@ messageFont := "Segoe UI"
 backgroundColor := "2A2B2F"
 padSize := 30
 ignoreHover := 0
+useWindowsTheme := 1
 
 ;Loop through parameters and split apart on equals sign 
 loop %0%
@@ -64,6 +65,7 @@ Available Parameters (case insensitive):
 	logPath (save a record of notification calls)
 	padSize
 	ignoreHover
+	useWindowsTheme
 
 You Passed
 %params%
@@ -91,6 +93,18 @@ yPosition := 125*winCount
 ; set a unique notification title
 winTitle := "AHKNotification - " newGuid_Small()
 ;msgbox % messageColor
+
+if (useWindowsTheme == "1") {
+	RegRead, appMode, HKCU, Software\Microsoft\Windows\CurrentVersion\Themes\Personalize, AppsUseLightTheme
+	if (appMode == "1") {
+		backgroundColor := "White"
+		titleColor := "2C6D9E"
+		messageColor := "Black"
+	} else {
+		backgroundColor := "2A2B2F"
+	}
+}
+
 ; notification display settings
 Gui, +ToolWindow +AlwaysOnTop -Caption +Border
 Gui, Color, %backgroundColor%
