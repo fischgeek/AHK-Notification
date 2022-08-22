@@ -9,7 +9,6 @@ CoordMode, Mouse, Screen
 ;Things to configure:
 ;	Font,color,size title
 ;	Font,color,size body
-;	duration
 ;	pop in location/behavior
 
 titleSize := 30
@@ -51,7 +50,7 @@ if(!(notificationTitle or notificationText))
 	msg=
 	(
 Call script with parameters specified as below:
-	Notification.ahk "notificationText=Some Text" "NotificationTitle=A Title"
+	Notification.ahk "notificationText=Some Text" "notificationTitle=A Title"
 
 Available Parameters (case insensitive):
 	notificationTitle
